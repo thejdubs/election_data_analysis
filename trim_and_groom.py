@@ -13,7 +13,6 @@ def main():
     # print(prec_map_dict)
     trim(election_map_dict, prec_map_dict)
 
-    
 
 def trim(election_map_dict, prec_map_dict):
     
@@ -69,16 +68,6 @@ def trim(election_map_dict, prec_map_dict):
                     writer.writerow(fve_data_to_write)
                 csv_in_file.close()
                 csv_out_file.close()
-    
-
-def parse_args():
-    parser = argparse.ArgumentParser(description="Groom data set")
-    parser.add_argument('-v', '--verbose', dest='verbose', action='store_true', help='Enables verbose printing.')
-    args = parser.parse_args()
-    if args.verbose:
-        global g_verbose
-        g_verbose = True
-
 
 def extract_election_map():
     # county files to look at
@@ -138,6 +127,15 @@ def to_zero_start(val):
 # makes 0 based indexes into 1 based
 def to_one_start(val):
     return val + 1
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(description="Groom data set")
+    parser.add_argument('-v', '--verbose', dest='verbose', action='store_true', help='Enables verbose printing.')
+    args = parser.parse_args()
+    if args.verbose:
+        global g_verbose
+        g_verbose = True
 
 if __name__ == "__main__":
     main()
