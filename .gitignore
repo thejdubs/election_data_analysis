@@ -2,6 +2,8 @@
 mod_data/
 unmod_data/
 
+# IDE (vscode)
+.vscode
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
