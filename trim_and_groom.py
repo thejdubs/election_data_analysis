@@ -14,7 +14,9 @@ def main():
     # print(prec_map_dict)
 
 def trim(election_map_dict, prec_map_dict):
-    fve_indexs_of_interest = [6, 7, 8, 11]
+    fve_indexs_of_interest = [6, 7, 8, 11, 151]
+    # some entries must be there (7, 8, 151)
+    fve_index_of_interest_null_value = {6:'U', 11:'NON'}
     district_map_offset_index = 30
     election_map_offset_index = 70
     in_data_dir = './unmod_data/'
@@ -32,14 +34,19 @@ def trim(election_map_dict, prec_map_dict):
                     fve_data_to_write = []
                     # add the value at the indexes of interest
                     for i in fve_indexs_of_interest:
-                        fve_data_to_write.append(row[i])
+                        val = row[i] if row[i] != "" else fve_index_of_interest_null_value[i]
+                        fve_data_to_write.append(val)
                     # add the value of the precinct
                     for i in prec_map_dict[county_name]:
-                        fve_data_to_write.append(row[i+district_map_offset_index])
+                        # entry must be here
+                        val = row[i+district_map_offset_index]
+                        fve_data_to_write.append(val)
                     # add the value of the election party and method
                     for i in election_map_dict[county_name]:
-                        fve_data_to_write.append(row[(i*2) + election_map_offset_index])
-                        fve_data_to_write.append(row[(i*2) + 1 + election_map_offset_index])
+                        vote_method = row[(i*2) + election_map_offset_index] if row[(i*2) + election_map_offset_index] != "" else 'DNV'
+                        vote_party = row[(i*2) + 1 + election_map_offset_index] if row[(i*2) + 1 + election_map_offset_index] != "" else 'DNV'
+                        fve_data_to_write.append(vote_method)
+                        fve_data_to_write.append(vote_party)
                     writer.writerow(fve_data_to_write)
                 csv_in_file.close()
                 csv_out_file.close()
@@ -99,6 +106,7 @@ def extract_precinct_map():
     return prec_map_dict
 
 
+# verbose printing
 def v_print(msg):
     global g_verbose
     if g_verbose:
