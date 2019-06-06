@@ -17,12 +17,12 @@ def main():
     votes_dict = parse_results(county_of_interest)
     party_dict = sql_party(county_of_interest, cursor)
     
-    print(votes_dict)
-    print(party_dict)
+    # print(votes_dict)
+    # print(party_dict)
 
     unloyal_ratio_dict = calc_unloyal_ratio(votes_dict, party_dict)
 
-    print(unloyal_ratio_dict)
+    # print(unloyal_ratio_dict)
 
     loyalty_dict = find_loyalities(unloyal_ratio_dict)
 
@@ -30,7 +30,7 @@ def main():
 
     trimmed = trim(loyalty_dict)
 
-    print(trimmed)
+    # print(trimmed)
     
     cursor.close()
     con.close()
