@@ -1,6 +1,7 @@
 # data files
 mod_data/
 unmod_data/
+csv_data/
 
 # IDE (vscode)
 .vscode
